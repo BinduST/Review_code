@@ -50,6 +50,7 @@ var postOutput = function(output) {
     var data = {
         output
     };
+    console.log('output data: ', data)
     return requester(method, uri, data);
 };
 
@@ -68,4 +69,23 @@ var challengeone = function(input) {
     };
 };
 
-solveChallenge(challengeone).then((res) => console.log(res));
+var isActive = function(product) {
+    var now = new Date();
+    var startDate = new Date(product.startDate);
+    var endDate = new Date(product.endDate);
+    return startDate <= now && (!product.endDate || endDate >= now);
+};
+
+var challengetwo = function(input) {
+    var activeProducts = input.filter((product) => {
+        console.log(product)
+        active = isActive(product);
+        console.log(active)
+        return active
+    });
+    return {
+        count: activeProducts.length
+    };
+};
+
+// solveChallenge(challengetwo).then((res) => console.log(res));
