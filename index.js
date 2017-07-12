@@ -56,9 +56,9 @@ var postOutput = function(output) {
 
 var solveChallenge = function(method) {
     return getInput().then((input) => {
-        console.log('input: ', input);
+        // console.log('input: ', input);
         var output = method(input);
-        console.log('output: ', output);
+        // console.log('output: ', output);
         return postOutput(output);
     });
 };
@@ -76,16 +76,25 @@ var isActive = function(product) {
     return startDate <= now && (!product.endDate || endDate >= now);
 };
 
+var filterActiveProducts = function(input) {
+    return input.filter(isActive);
+};
+
 var challengetwo = function(input) {
-    var activeProducts = input.filter((product) => {
-        console.log(product)
-        active = isActive(product);
-        console.log(active)
-        return active
-    });
     return {
-        count: activeProducts.length
+        count: filterActiveProducts(input).length
     };
 };
 
-// solveChallenge(challengetwo).then((res) => console.log(res));
+var challengethree = function(input) {
+    var activeProducts = filterActiveProducts(input);
+    console.log(activeProducts)
+    var result = activeProducts.reduce((categorised, product) => {
+        categorised[product.category] = categorised[product.category] ? categorised[product.category] + 1 : 1
+        return categorised;
+    },{});
+    console.log('result',result);
+    return result
+};
+
+// solveChallenge(challengethree).then((res) => console.log(res));
