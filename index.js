@@ -92,9 +92,20 @@ var challengethree = function(input) {
     var result = activeProducts.reduce((categorised, product) => {
         categorised[product.category] = categorised[product.category] ? categorised[product.category] + 1 : 1
         return categorised;
-    },{});
-    console.log('result',result);
+    }, {});
+    console.log('result', result);
     return result
 };
 
-// solveChallenge(challengethree).then((res) => console.log(res));
+var challengefour = function(input) {
+    var activeProducts = filterActiveProducts(input);
+    var totalValue = activeProducts.reduce((sum, product) => {
+        return product.price + sum
+    }, 0);
+    console.log(totalValue);
+    return {
+        totalValue
+    };
+};
+
+solveChallenge(challengefour).then((res) => console.log(res));
