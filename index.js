@@ -37,3 +37,35 @@ var getChallange = function() {
 // register();
 
 getChallange().then((res) => console.log(res));
+
+var getInput = function() {
+    var uri = 'challenge/input';
+    var method = 'GET';
+    return requester(method, uri);
+};
+
+var postOutput = function(output) {
+    var uri = 'challenge/output';
+    var method = 'POST';
+    var data = {
+        output
+    };
+    return requester(method, uri, data);
+};
+
+var solveChallenge = function(method) {
+    return getInput().then((input) => {
+        console.log('input: ', input);
+        var output = method(input);
+        console.log('output: ', output);
+        return postOutput(output);
+    });
+};
+
+var challengeone = function(input) {
+    return {
+        count: input.length
+    };
+};
+
+solveChallenge(challengeone).then((res) => console.log(res));
